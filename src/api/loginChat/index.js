@@ -4,7 +4,6 @@ import { setMyUserInfo, setFetchingStatus } from '../../redux/actions'
 import { message } from '../../components/common/alert'
 import i18next from "i18next";
 import { createHashHistory } from 'history'
-import { reject } from 'lodash';
 const history = createHashHistory()
 export const getToken = async(agoraId, password) => {
     var requestOptions = {
@@ -60,7 +59,6 @@ export const loginWithPassword = (agoraId, password) => {
         sessionStorage.setItem('webim_auth', JSON.stringify({ agoraId, password, accessToken }))
     }).catch((err) => {
         store.dispatch(setFetchingStatus(false))
-        // message.error('login fail.')
     })
 }
 

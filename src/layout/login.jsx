@@ -53,7 +53,9 @@ export default function Login() {
                 loginWithPassword(values.agoraId, values.password).then(value => {
 
                 }).catch(err => {
-                    setNotice({ show: true, text: 'Wrong Username or Password' })
+                    store.dispatch(setFetchingStatus(false))
+                    setdisabled(true)
+                    setLoginBtn(i18next.t('login-Login'))
                 }).finally(_ => {
                     setTimeout(() => {
                         setLoginBtn(i18next.t('login-Login'))
@@ -62,8 +64,9 @@ export default function Login() {
                 
                 store.dispatch(setMyUserInfo({ agoraId: values.agoraId, password: values.password }))
                 sessionStorage.setItem('webim_auth', JSON.stringify({ ...values, accessToken, agoraUid }))
-            }).catch(() => {
-                // store.dispatch(setFetchingStatus(false))
+            }).catch((error) => {
+                console.log(error)
+                store.dispatch(setFetchingStatus(false))
                 setNotice({ show: true, text: 'login fail' })
                 setdisabled(true)
                 setLoginBtn(i18next.t('login-Login'))
